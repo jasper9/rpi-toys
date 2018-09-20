@@ -34,7 +34,7 @@ location = "cork"
 
 count = 1
 
-while count <= 2:
+while count <= 3:
     # Read the sensor using the configured driver and gpio
     humidity, temperature = Adafruit_DHT.read_retry(sensor, sensor_gpio)
     current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
