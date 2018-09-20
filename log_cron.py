@@ -10,6 +10,13 @@ https://www.modmypi.com/blog/am2302-temphumidity-sensor
 https://www.definit.co.uk/2018/07/monitoring-temperature-and-humidity-with-a-raspberry-pi-3-dht22-sensor-influxdb-and-grafana/
 https://github.com/adafruit/Adafruit_Python_DHT
 
+
+Crontab 
+* * * * * python /home/pi/rpi-toys/log_cron.py > /dev/null 2>&1
+
+influxdb + grafana + AM2302 Sensor + Raspberry Pi
+
+
 '''
 # Configure InfluxDB connection variables
 host = "localhost" # My Ubuntu NUC
@@ -17,7 +24,7 @@ port = 8086 # default port
 user = "admin" # the user/password created for the pi, with write access
 password = "admin" 
 dbname = "logger" # the database we created earlier
-interval = 15 # Sample period in seconds
+interval = 30 # Sample period in seconds
 
 # Create the InfluxDB client object
 client = InfluxDBClient(host, port, user, password, dbname)
@@ -34,7 +41,7 @@ location = "cork"
 
 count = 1
 
-while count <= 3:
+while count <= 2:
     # Read the sensor using the configured driver and gpio
     humidity, temperature = Adafruit_DHT.read_retry(sensor, sensor_gpio)
     current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
