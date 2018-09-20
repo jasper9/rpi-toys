@@ -61,5 +61,5 @@ data = [
 # Send the JSON data to InfluxDB
 client.write_points(data)
 # Wait until it's time to query again...
-time.sleep(interval)
+#time.sleep(interval)
  
