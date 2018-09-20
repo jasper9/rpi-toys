@@ -4,6 +4,13 @@ from datetime import datetime
 import Adafruit_DHT
 from influxdb import InfluxDBClient
 
+'''
+With code & influence from:
+https://www.modmypi.com/blog/am2302-temphumidity-sensor
+https://www.definit.co.uk/2018/07/monitoring-temperature-and-humidity-with-a-raspberry-pi-3-dht22-sensor-influxdb-and-grafana/
+https://github.com/adafruit/Adafruit_Python_DHT
+
+'''
 # Configure InfluxDB connection variables
 host = "localhost" # My Ubuntu NUC
 port = 8086 # default port
@@ -29,6 +36,9 @@ while True:
 	# Read the sensor using the configured driver and gpio
 	humidity, temperature = Adafruit_DHT.read_retry(sensor, sensor_gpio)
 	current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
+	# Un-comment the line below to convert the temperature to Fahrenheit.
+	temperature = temperature * 9/5.0 + 32
 
 	# Print for debugging, uncomment the below line
 	print("[%s] Temp: %s, Humidity: %s" % (current_time, temperature, humidity)) 
